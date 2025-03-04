@@ -26,7 +26,7 @@ source venv/bin/activate
 # Install the required packages
 pip install langchain langchain-core langgraph
 pip install langgraph-checkpoint-sqlite  # For local development
-pip install python-docx weasyprint google-generativeai
+pip install python-docx weasyprint google-genai langchain-google-genai
 ```
 
 ### 3. Set Up Environment Variables

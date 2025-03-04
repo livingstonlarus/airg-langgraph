@@ -4,7 +4,7 @@ AIRG-LangGraph - Utilities for working with the Gemini LLM
 
 import os
 from typing import Dict, List, Any
-import google.generativeai as genai
+from google import genai
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -18,6 +18,7 @@ def initialize_gemini():
     if not api_key:
         raise ValueError("GEMINI_API_KEY environment variable is not set")
     
+    # Create a client with the API key
     genai.configure(api_key=api_key)
 
 
@@ -33,7 +34,7 @@ def get_gemini_llm():
     
     # Create a LangChain ChatGoogleGenerativeAI instance
     llm = ChatGoogleGenerativeAI(
-        model="gemini-1.5-flash",
+        model="gemini-1.5-flash-001",
         temperature=0.2,
         convert_system_message_to_human=True,
     )
