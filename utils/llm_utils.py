@@ -34,7 +34,7 @@ def get_gemini_llm():
     
     # Create a LangChain ChatGoogleGenerativeAI instance
     llm = ChatGoogleGenerativeAI(
-        model="gemini-1.5-flash-001",
+        model="gemini-2.0-pro-exp",
         temperature=0.2,
         convert_system_message_to_human=True,
     )
