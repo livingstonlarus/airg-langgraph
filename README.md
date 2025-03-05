@@ -4,7 +4,7 @@
 
 AIRG-LangGraph is a stateful, multi-actor application that intelligently customizes your existing resume and cover letter for specific job applications using Google's Gemini AI. It leverages LangChain and LangGraph to create a robust, deployable solution for job seekers.
 
-> **Note**: This project uses the latest `google-genai` SDK (the official Google Generative AI Python SDK) for interacting with Google's Gemini models.
+> **Note**: This project uses the latest `google-genai` SDK (the official Google Generative AI Python SDK) for interacting with Google's Gemini models. It uses model **Gemini 2.0 Pro Exp** which is free to use as of March 5, 2025, while it's in experimental phase (quotas: 2 RPM, 50 /d).
 
 ## Features
 

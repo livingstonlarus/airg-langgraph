@@ -19,26 +19,29 @@ source venv/bin/activate
 # On Windows:
 # venv\Scripts\activate
 ```
+### 2. Install WeasyPrint Dependencies (macOS)
 
-### 2. Install Dependencies
+On macOS, the easiest way to install WeasyPrint and its dependencies is to use [Homebrew](https://brew.sh/):
 
 ```bash
-# Install the required packages
-pip install langchain langchain-core langgraph
-pip install langgraph-checkpoint-sqlite  # For local development
-pip install python-docx weasyprint google-genai langchain-google-genai
+brew install pango libffi
 ```
 
-### 3. Set Up Environment Variables
+### 3. Install Dependencies
 
-Create a `.env` file in the project root:
+```bash
+# Install the required packages from requirements.txt
+pip install -r requirements.txt
+```
+
+### 4. Set Up Environment Variables
 
 ```bash
 # Create .env file
-touch .env
+cp .env.example .env
 
 # Edit the file with your preferred editor
-# Add the following variables:
+# Edit the following variable:
 # GEMINI_API_KEY=your_gemini_api_key
 ```
 
@@ -119,6 +122,22 @@ WeasyPrint requires some system dependencies. If you encounter issues:
 - On macOS:
   ```bash
   brew install pango libffi
+  ```
+  
+  **Optional (but recommended if you encounter issues):**
+  
+  After installing `libffi` with Homebrew, you might need to set the following environment variables for compilers and `pkg-config` to find it. Add these lines to your shell configuration file (e.g., `~/.bashrc`, `~/.zshrc`):
+  
+  ```bash
+  export LDFLAGS="-L/opt/homebrew/opt/libffi/lib"
+  export CPPFLAGS="-I/opt/homebrew/opt/libffi/include"
+  export PKG_CONFIG_PATH="/opt/homebrew/opt/libffi/lib/pkgconfig"
+  ```
+  
+  Then, source your shell configuration file or open a new terminal for the changes to take effect. For example:
+  
+  ```bash
+  source ~/.zshrc  # Or ~/.bashrc, depending on your shell
   ```
 
 - On Ubuntu/Debian:
