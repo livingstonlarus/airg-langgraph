@@ -18,16 +18,20 @@ from nodes.output_node import prepare_output
 # Define the state schema
 class GraphState(TypedDict):
     # Input data
-    resume_source_path: str
-    cover_letter_source_path: str
-    job_title: str
-    company_name: str
-    job_description: str
-    company_overview: str
-    hirer_name: str
-    hirer_gender: str
-    relevant_experience: str
-    output_file_name: str
+    resume_source_path: Annotated[str, "Path to the source resume DOCX file"]
+    cover_letter_source_path: Annotated[str, "Path to the source cover letter DOCX file"]
+    job_title: Annotated[str, "Job title"]
+    company_name: Annotated[str, "Company name"]
+    job_description: Annotated[str, "Job description"]
+    company_overview: Annotated[str, "Company overview"]
+    hirer_name: Annotated[str, "Name of the hiring manager"]
+    hirer_gender: Annotated[str, "Gender of the hiring manager"]
+    relevant_experience: Annotated[str, "Additional relevant experience"]
+    output_file_name: Annotated[str, "Output file name without extension"]
+    
+    # Template content
+    resume_template_content: Annotated[Dict[str, Any], "Processed resume template content"]
+    cover_letter_template_content: Annotated[Dict[str, Any], "Processed cover letter template content"]
         
     # Generated content
     resume_content: Annotated[Dict[str, str], "Generated content for the resume"]
@@ -54,20 +58,10 @@ def create_graph():
     builder.add_node("document_creation", create_documents)
     builder.add_node("output", prepare_output)
     
-    # Define the edges between nodes
+    # Define the edges between nodes sequentially
     builder.add_edge("input", "resume_generation")
-    builder.add_edge("input", "cover_letter_generation")
-
-    # Both resume and cover letter generation must complete before document creation
-    builder.add_conditional_edges(
-        "resume_generation",
-        lambda state: "cover_letter_generation" if "resume_content" in state else "document_creation"
-    )
-    
-    builder.add_conditional_edges(
-        "cover_letter_generation",
-        lambda state: "resume_generation" if "cover_letter_content" in state else "document_creation"
-    )
+    builder.add_edge("resume_generation", "cover_letter_generation")
+    builder.add_edge("cover_letter_generation", "document_creation")
     
     builder.add_edge("document_creation", "output")
     builder.add_edge("output", END)

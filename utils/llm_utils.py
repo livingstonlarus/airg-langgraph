@@ -29,7 +29,7 @@ def get_gemini_llm():
     llm = ChatGoogleGenerativeAI(
         model="gemini-2.0-pro-exp-02-05",  # Using the full model name
         temperature=0.2,
-        convert_system_message_to_human=True,
+        # Removed deprecated parameter: convert_system_message_to_human
         google_api_key=api_key,  # Explicitly pass the API key
     )
 
