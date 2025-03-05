@@ -46,18 +46,7 @@ Make sure to replace `your_gemini_api_key` with your actual Gemini API key from 
 
 ## Project Configuration
 
-### 1. Prepare DOCX Templates
-
-1. Create or obtain DOCX templates for your resume and cover letter
-2. Add placeholders in the format `{{PLACEHOLDER_NAME}}` where you want dynamic content
-3. Common placeholders include:
-   - `{{JOB_TITLE}}`
-   - `{{COMPANY_NAME}}`
-   - `{{HIRER_NAME}}`
-   - `{{SKILLS}}`
-   - `{{EXPERIENCE}}`
-
-### 2. Configure Output Directory
+### 1. Configure Output Directory
 
 The application will create an `output` directory in the project root to store generated documents. You can modify this path in the configuration if needed.
 

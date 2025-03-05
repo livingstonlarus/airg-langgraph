@@ -9,7 +9,6 @@ AIRG-LangGraph is a stateful, multi-actor application that intelligently customi
 ## Features
 
 - **Intelligent Document Customization**: Analyzes your existing resume and cover letter to make subtle, targeted improvements based on job descriptions
-- **No Placeholders Required**: Works with your actual resume and cover letter documents - no need to replace content with placeholders
 - **Preserves Document Structure**: Maintains your original document structure and formatting while making targeted content improvements
 - **Smart Section Analysis**: Identifies different sections of your documents (summary, experience, skills, etc.) and applies appropriate modifications
 - **Recruitment Agency Detection**: Automatically detects if the job is posted by a recruitment agency and adjusts cover letter accordingly
@@ -23,24 +22,20 @@ The application is structured as a LangGraph agent with the following components
 
 ```mermaid
 graph LR
-    A[Input] --> B(Template Processing);
-    A --> C(Resume Generation);
-    A --> D(Cover Letter Generation);
-    B --> C;
-    B --> D;
-    C --> E(Document Creation);
-    D --> E;
-    E --> F(Output);
+    A[Input] --> B(Resume Generation);
+    A --> C(Cover Letter Generation);
+    B --> D(Document Creation);
+    C --> D;
+    D --> E(Output);
 ```
 
 ### Components
 
 1. **Input Node**: Collects user input including document paths, job details, and output preferences
-2. **Template Processing Node**: Loads DOCX documents and analyzes their content structure
-3. **Resume Generation Node**: Uses Gemini (via LangChain) to generate improved resume content
-4. **Cover Letter Generation Node**: Uses Gemini (via LangChain) to generate improved cover letter content
-5. **Document Creation Node**: Updates DOCX documents with improved content and creates PDFs
-6. **Output Node**: Returns paths to the generated files
+2. **Resume Generation Node**: Uses Gemini (via LangChain) to generate improved resume content
+3. **Cover Letter Generation Node**: Uses Gemini (via LangChain) to generate improved cover letter content
+4. **Document Creation Node**: Updates DOCX documents with improved content and creates PDFs
+5. **Output Node**: Returns paths to the generated files
 
 ## Prerequisites
 
@@ -56,7 +51,7 @@ See the [SETUP.md](SETUP.md) file for detailed installation and setup instructio
 
 After installation and setup, you can use the application by:
 
-1. Providing your existing DOCX resume and cover letter (no placeholders needed)
+1. Providing your existing DOCX resume and cover letter
 2. Running the application with your job details
 3. Retrieving the generated DOCX and PDF files from the output directory
 

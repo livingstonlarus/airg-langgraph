@@ -10,7 +10,6 @@ from langgraph.checkpoint.sqlite import SqliteSaver
 
 # Import node functions
 from nodes.input_node import process_input
-from nodes.template_processing_node import process_templates
 from nodes.resume_generation_node import generate_resume
 from nodes.cover_letter_generation_node import generate_cover_letter
 from nodes.document_creation_node import create_documents
@@ -29,11 +28,7 @@ class GraphState(TypedDict):
     hirer_gender: str
     relevant_experience: str
     output_file_name: str
-    
-    # Template processing data
-    resume_template_content: Annotated[Dict[str, Any], "Content and placeholders from the resume template"]
-    cover_letter_template_content: Annotated[Dict[str, Any], "Content and placeholders from the cover letter template"]
-    
+        
     # Generated content
     resume_content: Annotated[Dict[str, str], "Generated content for the resume"]
     cover_letter_content: Annotated[Dict[str, str], "Generated content for the cover letter"]
@@ -54,17 +49,15 @@ def create_graph():
     
     # Add nodes to the graph
     builder.add_node("input", process_input)
-    builder.add_node("template_processing", process_templates)
     builder.add_node("resume_generation", generate_resume)
     builder.add_node("cover_letter_generation", generate_cover_letter)
     builder.add_node("document_creation", create_documents)
     builder.add_node("output", prepare_output)
     
     # Define the edges between nodes
-    builder.add_edge("input", "template_processing")
-    builder.add_edge("template_processing", "resume_generation")
-    builder.add_edge("template_processing", "cover_letter_generation")
-    
+    builder.add_edge("input", "resume_generation")
+    builder.add_edge("input", "cover_letter_generation")
+
     # Both resume and cover letter generation must complete before document creation
     builder.add_conditional_edges(
         "resume_generation",
