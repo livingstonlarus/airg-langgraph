@@ -34,7 +34,8 @@ ENV/
 *.swp
 *.swo
 
-# Output files
+# Inpput and output files
+input/
 output/
 
 # Database files

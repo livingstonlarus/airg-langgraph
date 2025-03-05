@@ -72,21 +72,11 @@ def create_graph():
     builder.add_edge("document_creation", "output")
     builder.add_edge("output", END)
     
-    # Create the graph
-    graph = builder.compile()
-    
-    # Set up persistence with SQLite
-    # Create the output directory if it doesn't exist
-    os.makedirs("output", exist_ok=True)
-    
-    # Create a SQLite checkpointer
-    checkpointer = SqliteSaver.from_conn_string("sqlite:///output/airg_sessions.db")
-    
-    # Add the checkpointer to the graph
-    graph_with_checkpointer = graph.with_checkpointer(checkpointer)
-    
-    return graph_with_checkpointer
+    # Set the entry point of the graph
+    builder.set_entry_point("input")
 
+    # Create the graph
+    return builder.compile()
 
 def run_graph(input_data: Dict[str, Any]) -> Dict[str, Any]:
     """
@@ -100,9 +90,16 @@ def run_graph(input_data: Dict[str, Any]) -> Dict[str, Any]:
     """
     # Create the graph
     graph = create_graph()
+
+    # Set up persistence with SQLite
+    # Create the output directory if it doesn't exist
+    os.makedirs("output", exist_ok=True)
+
+    # Create a SQLite checkpointer
+    checkpointer = SqliteSaver.from_conn_string("sqlite:///output/airg_sessions.db")
     
-    # Run the graph with the input data
-    result = graph.invoke(input_data)
+    # Run the graph with the input data and checkpointer
+    result = graph.invoke(input_data, {"checkpointer": checkpointer})
     
     # Return the result
     return result
