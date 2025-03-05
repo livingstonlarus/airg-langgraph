@@ -132,6 +132,7 @@ WeasyPrint requires some system dependencies. If you encounter issues:
   export LDFLAGS="-L/opt/homebrew/opt/libffi/lib"
   export CPPFLAGS="-I/opt/homebrew/opt/libffi/include"
   export PKG_CONFIG_PATH="/opt/homebrew/opt/libffi/lib/pkgconfig"
+  export DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib:$DYLD_FALLBACK_LIBRARY_PATH
   ```
   
   Then, source your shell configuration file or open a new terminal for the changes to take effect. For example:
@@ -144,23 +145,3 @@ WeasyPrint requires some system dependencies. If you encounter issues:
   ```bash
   sudo apt-get install build-essential python3-dev python3-pip python3-setuptools python3-wheel python3-cffi libcairo2 libpango-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf2.0-0 libffi-dev shared-mime-info
   ```
-
-### LangGraph Version Issues
-
-If you encounter compatibility issues with LangGraph:
-
-```bash
-# Check installed version
-pip show langgraph
-
-# Upgrade to latest version if needed
-pip install --upgrade langgraph
-```
-
-## Next Steps
-
-After setting up the project, you can:
-
-1. Customize the templates to match your preferred style
-2. Modify the prompts in the code to improve the AI-generated content
-3. Extend the application with additional features like job scraping
