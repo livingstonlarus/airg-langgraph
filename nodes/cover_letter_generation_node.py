@@ -5,7 +5,7 @@ Generates content for the cover letter based on the template and job details
 
 from typing import Dict, Any
 from utils.llm_utils import generate_cover_letter_content
-from utils.docx_utils import read_document
+from utils.docx_utils import process_template
 
 
 def generate_cover_letter(state: Dict[str, Any]) -> Dict[str, Any]:
@@ -21,15 +21,13 @@ def generate_cover_letter(state: Dict[str, Any]) -> Dict[str, Any]:
     # Create a new state dictionary to avoid modifying the input state
     new_state = state.copy()
 
-    # Read the cover letter template content
-    _, cover_letter_template_content, cover_letter_template_sections = read_document(
-        state["cover_letter_source_path"]
-    )
+    # Process the cover letter template
+    cover_letter_template_content = process_template(state["cover_letter_source_path"])
+    new_state["cover_letter_template_content"] = cover_letter_template_content
 
     # Generate cover letter content
     cover_letter_content = generate_cover_letter_content(
         cover_letter_template_content=cover_letter_template_content,
-        cover_letter_template_sections=cover_letter_template_sections,
         job_title=state["job_title"],
         company_name=state["company_name"],
         job_description=state["job_description"],

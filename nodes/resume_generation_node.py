@@ -5,7 +5,7 @@ Generates content for the resume based on the template and job details
 
 from typing import Dict, Any
 from utils.llm_utils import generate_resume_content
-from utils.docx_utils import read_document
+from utils.docx_utils import process_template
 
 
 def generate_resume(state: Dict[str, Any]) -> Dict[str, Any]:
@@ -21,13 +21,13 @@ def generate_resume(state: Dict[str, Any]) -> Dict[str, Any]:
     # Create a new state dictionary to avoid modifying the input state
     new_state = state.copy()
 
-    # Read the resume template content
-    _, resume_template_content, resume_template_sections = read_document(state["resume_source_path"])
+    # Process the resume template
+    resume_template_content = process_template(state["resume_source_path"])
+    new_state["resume_template_content"] = resume_template_content
 
     # Generate resume content
     resume_content = generate_resume_content(
         resume_template_content=resume_template_content,
-        resume_template_sections=resume_template_sections,
         job_title=state["job_title"],
         company_name=state["company_name"],
         job_description=state["job_description"],

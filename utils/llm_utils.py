@@ -3,42 +3,28 @@ AIRG-LangGraph - Utilities for working with the Gemini LLM
 """
 
 import os
+import json
+import re
 from typing import Dict, List, Any
-from google import genai
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
 
-def initialize_gemini():
-    """
-    Initialize the Gemini API
-    """
-    api_key = os.environ.get("GEMINI_API_KEY")
-    if not api_key:
-        raise ValueError("GEMINI_API_KEY environment variable is not set")
-    
-    # Create a client with the API key
-    genai.configure(api_key=api_key)
-
-
 def get_gemini_llm():
     """
     Get a LangChain ChatGoogleGenerativeAI instance
-    
+
     Returns:
         ChatGoogleGenerativeAI instance
     """
-    # Initialize Gemini if not already initialized
-    initialize_gemini()
-    
     # Create a LangChain ChatGoogleGenerativeAI instance
     llm = ChatGoogleGenerativeAI(
         model="gemini-2.0-pro-exp",
         temperature=0.2,
         convert_system_message_to_human=True,
     )
-    
+
     return llm
 
 
@@ -137,12 +123,10 @@ def generate_resume_content(
     })
     
     # Parse the response as JSON
-    import json
     try:
         content = json.loads(response)
     except json.JSONDecodeError:
         # If the response is not valid JSON, extract it from the text
-        import re
         json_match = re.search(r'```json\n(.*?)\n```', response, re.DOTALL)
         if json_match:
             try:
@@ -266,12 +250,10 @@ def generate_cover_letter_content(
     })
     
     # Parse the response as JSON
-    import json
     try:
         content = json.loads(response)
     except json.JSONDecodeError:
         # If the response is not valid JSON, extract it from the text
-        import re
         json_match = re.search(r'```json\n(.*?)\n```', response, re.DOTALL)
         if json_match:
             try:

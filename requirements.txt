@@ -1,6 +1,6 @@
 langchain>=0.3.0
 langchain-core>=0.3.0
-langgraph>=0.2.0
+langgraph>=0.3.0
 langgraph-checkpoint-sqlite>=1.0.0
 python-docx>=0.8.11
 weasyprint>=60.2
