@@ -18,11 +18,19 @@ def get_gemini_llm():
     Returns:
         ChatGoogleGenerativeAI instance
     """
+    # Get the API key from environment variables
+    import os
+    api_key = os.environ.get("GEMINI_API_KEY")
+    
+    if not api_key:
+        raise ValueError("GEMINI_API_KEY environment variable is not set")
+    
     # Create a LangChain ChatGoogleGenerativeAI instance
     llm = ChatGoogleGenerativeAI(
-        model="gemini-2.0-pro-exp",
+        model="gemini-2.0-pro-exp-02-05",  # Using the full model name
         temperature=0.2,
         convert_system_message_to_human=True,
+        google_api_key=api_key,  # Explicitly pass the API key
     )
 
     return llm
