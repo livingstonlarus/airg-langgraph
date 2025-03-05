@@ -18,8 +18,8 @@ from nodes.output_node import prepare_output
 # Define the state schema
 class GraphState(TypedDict):
     # Input data
-    resume_template_path: str
-    cover_letter_template_path: str
+    resume_source_path: str
+    cover_letter_source_path: str
     job_title: str
     company_name: str
     job_description: str
