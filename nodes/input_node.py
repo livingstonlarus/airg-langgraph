@@ -22,18 +22,18 @@ def process_input(state: Dict[str, Any]) -> Dict[str, Any]:
     
     # Validate required fields
     required_fields = [
-        "resume_template_path",
-        "cover_letter_template_path",
+        "resume_source_path",
+        "cover_letter_source_path",
         "job_title",
         "company_name",
     ]
-    
+
     for field in required_fields:
         if field not in state or not state[field]:
             raise ValueError(f"Missing required field: {field}")
     
     # Validate template paths
-    for field in ["resume_template_path", "cover_letter_template_path"]:
+    for field in ["resume_source_path", "cover_letter_source_path"]:
         if not os.path.exists(state[field]):
             raise ValueError(f"Template file does not exist: {state[field]}")
     

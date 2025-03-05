@@ -75,11 +75,11 @@ def main(
     if interactive:
         if not resume_template:
             resume_template = click.prompt(
-                "Path to resume template", type=click.Path(exists=True)
+                "Path to source resume", type=click.Path(exists=True)
             )
         if not cover_letter_template:
             cover_letter_template = click.prompt(
-                "Path to cover letter template", type=click.Path(exists=True)
+                "Path to source cover letter", type=click.Path(exists=True)
             )
         if not job_title:
             job_title = click.prompt("Job title")
@@ -120,8 +120,8 @@ def main(
 
     # Create input data for the graph
     input_data = {
-        "resume_template_path": resume_template,
-        "cover_letter_template_path": cover_letter_template,
+        "resume_source_path": resume_template,
+        "cover_letter_source_path": cover_letter_template,
         "job_title": job_title,
         "company_name": company_name,
         "job_description": job_description or "",
