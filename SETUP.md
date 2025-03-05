@@ -79,39 +79,58 @@ For interactive mode:
 python main.py --interactive
 ```
 
-## Deployment to LangGraph Platform
+## Using LangGraph Studio for Development and Testing
 
-### 1. Prepare for Deployment
+### 1. Prepare for Development
 
 ```bash
-# Install LangGraph Cloud CLI
+# Install LangGraph CLI
 pip install langgraph-cli
 
-# Login to LangGraph Cloud
-langgraph login
+# Install the inmem extra for development mode
+pip install -U "langgraph-cli[inmem]"
 ```
 
-### 2. Configure Deployment
+### 2. Configure LangGraph
 
-Create a `langgraph.json` file in the project root:
+The project includes a `langgraph.json` file in the project root with the following configuration:
 
 ```json
 {
-  "name": "airg-langgraph",
-  "entrypoint": "app:graph"
+  "dependencies": ["."],
+  "graphs": {
+    "airg": "app:graph"
+  },
+  "env": {
+    "GEMINI_API_KEY": "${GEMINI_API_KEY}"
+  }
 }
 ```
 
-### 3. Deploy
+### 3. Run in Development Mode
 
 ```bash
-# Deploy to LangGraph Cloud
-langgraph deploy
+# Run LangGraph API server in development mode
+langgraph dev
 ```
 
-### 4. Access Your Deployed Application
+This will start a local API server at http://127.0.0.1:2024 with hot reloading capabilities.
 
-After deployment, you'll receive a URL where your application is hosted. You can interact with it via API calls or through the LangGraph Studio interface.
+### 4. Access LangGraph Studio
+
+Open your browser and navigate to http://127.0.0.1:2024/studio to access the LangGraph Studio interface. You can use this to visualize and debug your graph execution.
+
+### 5. Building for Production (Optional)
+
+If you want to build a Docker image for production:
+
+```bash
+# Build a Docker image
+langgraph build -t airg-langgraph
+
+# Run the Docker image
+langgraph up
+```
 
 ## Troubleshooting
 

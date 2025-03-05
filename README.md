@@ -24,9 +24,8 @@ The application is structured as a LangGraph agent with the following components
 ```mermaid
 graph LR
     A[Input (Source Documents)] --> B(Resume Generation);
-    A --> C(Cover Letter Generation);
-    B --> D(Document Creation);
-    C --> D;
+    B --> C(Cover Letter Generation);
+    C --> D(Document Creation);
     D --> E(Output);
 ```
 

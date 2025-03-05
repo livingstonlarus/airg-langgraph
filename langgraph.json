@@ -1,8 +1,9 @@
 {
-  "name": "airg-langgraph",
-  "entrypoint": "app:graph",
-  "description": "AI Resume Generator using LangChain and LangGraph",
-  "environment_variables": [
-    "GEMINI_API_KEY"
-  ]
+  "dependencies": ["."],
+  "graphs": {
+    "airg": "app:graph"
+  },
+  "env": {
+    "GEMINI_API_KEY": "${GEMINI_API_KEY}"
+  }
 }
