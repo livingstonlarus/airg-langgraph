@@ -14,6 +14,7 @@ AIRG-LangGraph is a stateful, multi-actor application that intelligently customi
 - **Recruitment Agency Detection**: Automatically detects if the job is posted by a recruitment agency and adjusts the cover letter accordingly.
 - **PDF Export**: Generates professional PDF documents from the customized DOCX files.
 - **Stateful Processing**: Leverages LangGraph for maintaining state throughout the document generation process.
+- **Automatic Language Detection**: The application automatically detects the language of the input documents (resume and job description) and generates output in the appropriate language.
 - **Deployable**: Can be deployed to the LangGraph platform for easy access.
 
 ## Architecture
