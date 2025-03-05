@@ -33,7 +33,6 @@ brew install pango libffi
 # Install the required packages from requirements.txt
 pip install -r requirements.txt
 ```
-
 ### 4. Set Up Environment Variables
 
 ```bash
@@ -41,10 +40,14 @@ pip install -r requirements.txt
 cp .env.example .env
 
 # Edit the file with your preferred editor
-# Edit the following variable:
+# Edit the following variables:
 # GEMINI_API_KEY=your_gemini_api_key
+# LANGSMITH_API_KEY=your_langsmith_api_key
 ```
 
+Make sure to replace:
+- `your_gemini_api_key` with your actual Gemini API key from [Google AI Studio](https://aistudio.google.com/app/apikey)
+- `your_langsmith_api_key` with your LangSmith API key from [LangSmith Settings](https://smith.langchain.com/settings) (required for LangGraph Studio)
 Make sure to replace `your_gemini_api_key` with your actual Gemini API key from [Google AI Studio](https://aistudio.google.com/app/apikey).
 
 ## Project Configuration
