@@ -1,17 +1,17 @@
 """
 AIRG-LangGraph - Document Creation Node
-Updates templates with generated content and creates PDF files
+Updates documents with generated content and creates PDF files
 """
 
 import os
 from typing import Dict, Any
-from utils.docx_utils import update_template, save_document
+from utils.docx_utils import update_document_content, save_document
 from utils.pdf_utils import docx_to_pdf
 
 
 def create_documents(state: Dict[str, Any]) -> Dict[str, Any]:
     """
-    Create documents by updating templates with generated content
+    Create documents by updating content with generated improvements
     
     Args:
         state: Current state of the graph
@@ -27,7 +27,7 @@ def create_documents(state: Dict[str, Any]) -> Dict[str, Any]:
     os.makedirs(output_dir, exist_ok=True)
     
     # Update and save the resume
-    resume_doc = update_template(
+    resume_doc = update_document_content(
         state["resume_template_content"]["document"],
         state["resume_content"],
     )
@@ -36,7 +36,7 @@ def create_documents(state: Dict[str, Any]) -> Dict[str, Any]:
     new_state["resume_docx_path"] = resume_docx_path
     
     # Update and save the cover letter
-    cover_letter_doc = update_template(
+    cover_letter_doc = update_document_content(
         state["cover_letter_template_content"]["document"],
         state["cover_letter_content"],
     )
