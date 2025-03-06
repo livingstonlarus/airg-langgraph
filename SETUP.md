@@ -88,7 +88,8 @@ python main.py --interactive
 
 ```bash
 # Install LangGraph CLI
-pip install langgraph-cli
+# and LangChain OpenAI (required by LangSmith)
+pip install langgraph-cli langchain-openai
 
 # Install the inmem extra for development mode
 pip install -U "langgraph-cli[inmem]"
@@ -96,19 +97,7 @@ pip install -U "langgraph-cli[inmem]"
 
 ### 2. Configure LangGraph
 
-The project includes a `langgraph.json` file in the project root with the following configuration:
-
-```json
-{
-  "dependencies": ["."],
-  "graphs": {
-    "airg": "app:graph"
-  },
-  "env": {
-    "GEMINI_API_KEY": "${GEMINI_API_KEY}"
-  }
-}
-```
+The project already includes a `langgraph.json` file in the project root.
 
 ### 3. Run in Development Mode
 
@@ -121,11 +110,22 @@ This will start a local API server at http://127.0.0.1:2024 with hot reloading c
 
 ### 4. Access LangGraph Studio
 
-Open your browser and navigate to http://127.0.0.1:2024/studio to access the LangGraph Studio interface. You can use this to visualize and debug your graph execution.
+Your browser will automatically open the LangGraph Studio interface at `https://smith.langchain.com/studio/?baseUrl=http://127.0.0.1:2024`. You can use this to visualize and debug your graph execution.
 
-### 5. Building for Production (Optional)
+You may need to pass the LangSmith onboarding (`smith.langchain.com/onboarding?organizationId=...`) first by setting credentials and having a project name generated, then to edit environment variables in .env:
+```
+LANGSMITH_TRACING=true
+LANGSMITH_ENDPOINT="the_langsmith_endpoint_url"
+LANGSMITH_API_KEY="your_langsmith_api_key"
+LANGSMITH_PROJECT="your_assigned_project_name"
+OPENAI_API_KEY="your_openai_api_key"
+```
 
-If you want to build a Docker image for production:
+### 5. Deploying
+
+#### A. Docker
+
+To build a Docker image for production:
 
 ```bash
 # Build a Docker image
@@ -134,6 +134,14 @@ langgraph build -t airg-langgraph
 # Run the Docker image
 langgraph up
 ```
+
+Building a Docker image encapsulates the application and its dependencies into a portable, self-contained unit. This ensures consistent execution across various environments, from local development machines to cloud-based deployments. The resulting Docker image can be deployed on platforms such as a Virtual Private Server (VPS) or a Kubernetes (K8s) cluster, facilitating scalable and reliable cloud execution.
+
+#### B. LangGraph Platform (Cloud SaaS)
+
+Follow instructions at: https://langchain-ai.github.io/langgraph/cloud/quick_start/
+
+⚠️ From the LangGraph Platform screen (`smith.langchain.com/o/.../host`) you may read "One-click deployments of LangGraph applications" but may not find a "New Deployment" button as described in the Quick Start guide. That's probably because you are on the free Developer plan. As stated in the screen, to be able to deploy to LangGraph Cloud, you need to be on Plus, Premier, Startup, or Enterprise plans: https://www.langchain.com/pricing-langsmith
 
 ## Troubleshooting
 
